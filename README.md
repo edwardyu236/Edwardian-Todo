@@ -15,5 +15,5 @@ Coding:
 - Closures
 
 To-do:
-Persistence
-(Possibly customised cells)
+- Persistence
+- (Possibly customised cells)
