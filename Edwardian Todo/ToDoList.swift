@@ -20,7 +20,7 @@ class TodoList {
     func demo() {
         self.addTodo("Finish coding Edwardian Todo.")
         self.addTodo("Be awesome!")
-        self.setCompletedAtIndex(1)
+        self.setCompletedAtIndex(todos.count - 1)
     }
     
     func count() -> Int {
