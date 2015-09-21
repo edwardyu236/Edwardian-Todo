@@ -16,9 +16,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        // Temporary
-        todolist.demo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -128,17 +125,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
 
-    @IBAction func deleteAllKay(sender: UIButton) {
+    @IBAction func deleteAll(sender: UIButton) {
         let confirmation = UIAlertController(title: "Delete all?", message: "This action is not reversible. Are you sure you want to delete all?", preferredStyle: .Alert)
         confirmation.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         confirmation.addAction(UIAlertAction(title: "Delete", style: .Destructive) {
             (action: UIAlertAction) -> Void in
             self.todolist = TodoList()
             self.tableView.reloadData()
-
             })
         self.presentViewController(confirmation, animated: true, completion: nil)
 
+    }
+    
+    @IBAction func demo(sender: UIButton) {
+        todolist.demo()
+        self.tableView.reloadData()
     }
 
 }
