@@ -22,16 +22,22 @@
                                 <items>
                                     <barButtonItem style="plain" id="UAI-Qh-tl1">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bQ7-Gc-Kup">
-                                            <rect key="frame" x="20" y="7" width="63" height="30"/>
+                                            <rect key="frame" x="20" y="7" width="81" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Add New"/>
+                                            <state key="normal" title="Create New"/>
+                                            <connections>
+                                                <action selector="createNew:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OYJ-tb-x5v"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="sjt-lJ-bYN">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jND-sf-VGM">
-                                            <rect key="frame" x="93" y="7" width="66" height="30"/>
+                                            <rect key="frame" x="111" y="7" width="66" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Delete All"/>
+                                            <connections>
+                                                <action selector="deleteAllKay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AdU-NK-pj4"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>
@@ -75,6 +81,9 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="paj-iV-wCl" secondAttribute="bottom" id="fDh-dO-BHf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="paj-iV-wCl" id="8k3-Do-gt3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

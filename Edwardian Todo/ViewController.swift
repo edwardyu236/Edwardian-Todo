@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var todolist = TodoList()
-
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -64,6 +65,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             self.todolist.removeAtIndex(todoListIndex)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
         }
         
         let duplicateAction = UITableViewRowAction(style: .Default, title: "Duplicate") {
@@ -99,7 +101,45 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
+    // Deal with buttons on bar
+    @IBAction func createNew(sender: UIButton) {
+        var todoField = UITextField()
+        
+        let prompt = UIAlertController(title: "Create a new to-do", message: nil, preferredStyle: .Alert)
+        
+        prompt.addTextFieldWithConfigurationHandler {
+            (textField: UITextField!) -> Void in
+            textField.placeholder = "Title of To-Do"
+            todoField = textField
+        }
+        
+        prompt.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        prompt.addAction(UIAlertAction(title: "Create", style: .Default) {
+            (action: UIAlertAction) -> Void in
+            let todo = todoField.text!
+            if todo != "" {
+                self.todolist.addTodo(todo)
+                
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.todolist.count() - 1, inSection: 0)], withRowAnimation: .Fade)
+            }
+            
+        })
+        self.presentViewController(prompt, animated: true, completion: nil)
 
+    }
+
+    @IBAction func deleteAllKay(sender: UIButton) {
+        let confirmation = UIAlertController(title: "Delete all?", message: "This action is not reversible. Are you sure you want to delete all?", preferredStyle: .Alert)
+        confirmation.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        confirmation.addAction(UIAlertAction(title: "Delete", style: .Destructive) {
+            (action: UIAlertAction) -> Void in
+            self.todolist = TodoList()
+            self.tableView.reloadData()
+
+            })
+        self.presentViewController(confirmation, animated: true, completion: nil)
+
+    }
 
 }
 
