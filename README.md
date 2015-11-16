@@ -1,6 +1,9 @@
 # Edwardian-Todo
 An iOS todo app built in Swift
 
+Just added!
+- Persistence
+
 UI
 - Size Classes
 - Auto Layout constraints
@@ -15,5 +18,4 @@ Coding:
 - Closures
 
 To-do:
-- Persistence
 - (Possibly customised cells)
