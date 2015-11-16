@@ -8,13 +8,32 @@
 
 import Foundation
 
-class TodoList {
-    var todos = [String]()
-    var todoCompleted = [Bool]()
+class TodoList : NSObject, NSCoding {
+    
+    var todos: [String]
+    var todosCompleted: [Bool]
+    struct PropertyKey {
+        static let todosCount = "todosCount"
+
+    }
+
+    
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("todoList")
+    
+    init(todos: [String], todosCompleted: [Bool]) {
+        self.todos = todos
+        self.todosCompleted = todosCompleted
+        super.init()
+    }
+    
+    convenience override init() {
+        self.init(todos: [String](), todosCompleted: [Bool]())
+    }
     
     func addTodo(todo: String) {
         todos.append(todo)
-        todoCompleted.append(false)
+        todosCompleted.append(false)
     }
     
     func demo() {
@@ -32,20 +51,56 @@ class TodoList {
     }
     
     func isCompletedAtIndex(index: Int) -> Bool {
-        return todoCompleted[index]
+        return todosCompleted[index]
     }
     
     func setCompletedAtIndex(index: Int) {
-        todoCompleted[index] = true
+        todosCompleted[index] = true
     }
     
     func setIncompleteAtIndex(index: Int) {
-        todoCompleted[index] = false
+        todosCompleted[index] = false
     }
     
     func removeAtIndex(index: Int) {
         todos.removeAtIndex(index)
-        todoCompleted.removeAtIndex(index)
+        todosCompleted.removeAtIndex(index)
+    }
+    
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInteger(todos.count, forKey: PropertyKey.todosCount)
+        for i in 0..<todos.count {
+            aCoder.encodeObject(todos[i])
+        }
+        for i in 0..<todos.count {
+            aCoder.encodeObject(todosCompleted[i])
+        }
+    }
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        let count = aDecoder.decodeIntegerForKey(PropertyKey.todosCount)
+        if count == 0 {
+            // Just set up a new list
+            self.init()
+        } else {
+            // Have data, read it in
+            var todos = [String]()
+            for _ in 0..<count {
+                if let todo = aDecoder.decodeObject() as? String {
+                    todos.append(todo)
+                }
+            }
+            
+            var todosCompleted = [Bool]()
+            for _ in 0..<count {
+                if let todoCompleted = aDecoder.decodeObject() as? Bool {
+                    todosCompleted.append(todoCompleted)
+                }
+            }
+            
+            self.init(todos: todos, todosCompleted: todosCompleted)
+        }
     }
     
 }

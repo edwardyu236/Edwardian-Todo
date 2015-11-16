@@ -15,7 +15,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if let list = loadTodos() {
+            todolist = list
+        } else {
+            todolist = TodoList()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +65,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") {
             (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             self.todolist.removeAtIndex(todoListIndex)
+            self.saveTodos()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
         }
@@ -75,6 +80,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             } else {
                 self.todolist.setIncompleteAtIndex(duplicateIndex)
             }
+            self.saveTodos()
             tableView.reloadData()
         }
         duplicateAction.backgroundColor = UIColor.blueColor()
@@ -87,10 +93,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let todoListIndex = indexPath.row
         if todolist.isCompletedAtIndex(todoListIndex) {
             self.todolist.setIncompleteAtIndex(todoListIndex)
+            self.saveTodos()
             let cell = tableView.cellForRowAtIndexPath(indexPath)
             cell?.accessoryType = .None
         } else {
             self.todolist.setCompletedAtIndex(todoListIndex)
+            self.saveTodos()
             let cell = tableView.cellForRowAtIndexPath(indexPath)
             cell?.accessoryType = .Checkmark
 
@@ -116,7 +124,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let todo = todoField.text!
             if todo != "" {
                 self.todolist.addTodo(todo)
-                
+                self.saveTodos()
                 self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.todolist.count() - 1, inSection: 0)], withRowAnimation: .Fade)
             }
             
@@ -131,6 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         confirmation.addAction(UIAlertAction(title: "Delete", style: .Destructive) {
             (action: UIAlertAction) -> Void in
             self.todolist = TodoList()
+            self.saveTodos()
             self.tableView.reloadData()
             })
         self.presentViewController(confirmation, animated: true, completion: nil)
@@ -139,7 +148,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func demo(sender: UIButton) {
         todolist.demo()
+        saveTodos()
         self.tableView.reloadData()
+    }
+    
+    func saveTodos(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(todolist, toFile: TodoList.ArchiveURL.path!)
+        if !isSuccessfulSave {
+            print("Failed to save meals...")
+        }
+    }
+    
+    func loadTodos() -> TodoList? {
+        return  NSKeyedUnarchiver.unarchiveObjectWithFile(TodoList.ArchiveURL.path!) as? TodoList
     }
 
 }
