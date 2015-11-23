@@ -14,7 +14,7 @@
 		8D7EE2351BABE2C600CD64B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7EE2331BABE2C600CD64B6 /* LaunchScreen.storyboard */; };
 		8D7EE2401BABE2C600CD64B6 /* Edwardian_TodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EE23F1BABE2C600CD64B6 /* Edwardian_TodoTests.swift */; };
 		8D7EE24B1BABE2C600CD64B6 /* Edwardian_TodoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EE24A1BABE2C600CD64B6 /* Edwardian_TodoUITests.swift */; };
-		8DA3E1861BADDB3E003EA2B3 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3E1851BADDB3E003EA2B3 /* TodoList.swift */; settings = {ASSET_TAGS = (); }; };
+		8DA3E1861BADDB3E003EA2B3 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3E1851BADDB3E003EA2B3 /* TodoList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -404,7 +404,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Edwardian Todo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardyu.Edwardian-Todo";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.edwardyu236.Edwardian-Todo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -417,7 +417,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Edwardian Todo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardyu.Edwardian-Todo";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.edwardyu236.Edwardian-Todo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
